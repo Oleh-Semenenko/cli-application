@@ -38,7 +38,7 @@ async function removeContact(contactId) {
 			return null;
 		}
 		const [filteredContact] = contactsList.splice(idx, 1);
-		// await updateContactsList(contactsList);
+		await updateContactsList(contactsList);
 		return filteredContact;
 	} catch (error) {
 		console.log(error);
@@ -54,8 +54,9 @@ async function addContact(name, email, phone) {
 			email,
 			phone,
 		};
-		const newContactsList = [...contactsList, newContact];
-		return newContactsList;
+		contactsList.unshift(newContact);
+		updateContactsList(contactsList);
+		return contactsList;
 	} catch (error) {
 		console.log(error);
 	}
@@ -67,3 +68,4 @@ module.exports = {
 	removeContact,
 	addContact,
 };
+
